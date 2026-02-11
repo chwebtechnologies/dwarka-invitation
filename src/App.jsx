@@ -15,6 +15,7 @@ import mandalaImg from './assets/mandala.png';
 import peacockFeatherImg from './assets/peacock_feather.png';
 import ganeshaImg from './assets/ganesha.jpg';
 import dwarkadhishImg from './assets/dwarkadhish.jpg';
+import toranImg from './assets/toran.gif';
 
 const ScrollRevealSection = ({ children, className }) => {
   const ref = useRef(null);
@@ -173,6 +174,9 @@ const InvitationContent = () => {
 
       {/* Rotating Background Mandala */}
       <img src={mandalaImg} className="mandala-bg" alt="" loading="lazy" decoding="async" />
+
+      {/* Toran Decoration - Mobile Only (Visible at start) */}
+      <img src={toranImg} className="toran-header" alt="" loading="eager" decoding="async" />
 
       {/* Language Switcher - Floating Top Center */}
       <motion.div

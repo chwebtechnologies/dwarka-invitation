@@ -867,7 +867,7 @@ h1 {
 @media (max-width: 480px) {
   .content-wrapper {
     padding: 6.5rem 1.8rem 0 1.8rem;
-;
+    ;
     gap: 1rem;
     /* Reduced from 1.2rem */
   }
@@ -1012,5 +1012,26 @@ h1 {
   .peacock-side {
     height: 40vh;
     opacity: 0.05;
+  }
+}
+
+/* Toran Header - Mobile Only */
+.toran-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 15;
+  /* Above content, below language switcher (1000) if we want language accessible, or above? */
+  display: none;
+  /* Hidden by default (Desktop/Tablet) */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+@media (max-width: 767px) {
+  .toran-header {
+    display: block;
+    /* Adjust height or leave auto */
   }
 }
