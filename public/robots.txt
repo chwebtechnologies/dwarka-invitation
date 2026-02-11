@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://invitation.chwebtech.in/sitemap.xml
