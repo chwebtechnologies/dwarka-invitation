@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 import { MapPin } from 'lucide-react';
 import { Routes, Route, useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
@@ -16,6 +16,13 @@ import peacockFeatherImg from './assets/peacock_feather.png';
 import ganeshaImg from './assets/ganesha.jpg';
 import dwarkadhishImg from './assets/dwarkadhish.jpg';
 import toranImg from './assets/toran.gif';
+import dahiMatkiImg from './assets/dahi_matki.png';
+import fluteImg from './assets/krishna_flute.png';
+import pujaPng from './assets/pooja.png';
+import shobhayatraPng from './assets/rathyatra.png';
+import rasGarbaPng from './assets/ras_garba.png';
+import dinnerPng from './assets/dinner.png';
+import flagHostingPng from './assets/flaghosting.png';
 
 const ScrollRevealSection = ({ children, className }) => {
   const ref = useRef(null);
@@ -25,12 +32,12 @@ const ScrollRevealSection = ({ children, className }) => {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [50, 0, 0, -50]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.98, 1, 1, 0.98]);
+  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [30, 0, 0, -30]);
 
-  const smoothOpacity = useSpring(opacity, { stiffness: 50, damping: 20 });
-  const smoothScale = useSpring(scale, { stiffness: 50, damping: 20 });
-  const smoothY = useSpring(y, { stiffness: 50, damping: 20 });
+  const smoothOpacity = useSpring(opacity, { stiffness: 60, damping: 20 });
+  const smoothScale = useSpring(scale, { stiffness: 60, damping: 20 });
+  const smoothY = useSpring(y, { stiffness: 60, damping: 20 });
 
   return (
     <motion.section
@@ -178,27 +185,29 @@ const InvitationContent = () => {
       {/* Toran Decoration - Mobile Only (Visible at start) */}
       <img src={toranImg} className="toran-header" alt="" loading="eager" decoding="async" />
 
-      {/* Language Switcher - Floating Top Center */}
-      <motion.div
-        className="language-switcher"
-        initial={{ x: '-50%', y: -100, opacity: 0 }}
-        animate={{
-          x: '-50%',
-          y: isVisible ? 0 : -100,
-          opacity: isVisible ? 1 : 0
-        }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {['en', 'hi', 'gu'].map((lang) => (
-          <button
-            key={lang}
-            className={`lang-btn ${currentLang === lang ? 'active' : ''}`}
-            onClick={() => changeLanguage(lang)}
-          >
-            {lang === 'en' ? 'EN' : lang === 'hi' ? 'हिंदी' : 'ગુજરાતી'}
-          </button>
-        ))}
-      </motion.div>
+      {/* Language Switcher */}
+      <div className="language-switcher-wrapper">
+        <motion.div
+          className="language-switcher"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{
+            opacity: isVisible ? 1 : 0,
+            scale: isVisible ? 1 : 0.9,
+            pointerEvents: isVisible ? 'auto' : 'none'
+          }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          {['en', 'hi', 'gu'].map((lang) => (
+            <button
+              key={lang}
+              className={`lang-btn ${currentLang === lang ? 'active' : ''}`}
+              onClick={() => changeLanguage(lang)}
+            >
+              {lang === 'en' ? 'EN' : lang === 'hi' ? 'हिंदी' : 'ગુજરાતી'}
+            </button>
+          ))}
+        </motion.div>
+      </div>
 
       {/* SEO Logic */}
       <SEOUpdater
@@ -262,7 +271,7 @@ const InvitationContent = () => {
         {/* Description Section */}
         <ScrollRevealSection className="parallax-section">
           <motion.p variants={itemVariants} className="main-description">
-            {t('description')}
+            <Trans i18nKey="description" />
           </motion.p>
         </ScrollRevealSection>
 
@@ -273,23 +282,28 @@ const InvitationContent = () => {
 
           <div className="program-grid">
             {[
-              { label: 'puja_label', time: 'puja_time' },
-              { label: 'shobhayatra_label', time: 'shobhayatra_time' },
-              { label: 'sangeet_label', time: 'sangeet_time' },
-              { label: 'prasadi_label', time: 'prasadi_time' },
-              { label: 'aarohan_label', time: 'aarohan_time' },
-              { label: 'prasadi2_label', time: 'prasadi2_time' }
+              { label: 'puja_label', time: 'puja_time', icon: pujaPng },
+              { label: 'shobhayatra_label', time: 'shobhayatra_time', icon: shobhayatraPng },
+              { label: 'sangeet_label', time: 'sangeet_time', icon: rasGarbaPng },
+              { label: 'prasadi_label', time: 'prasadi_time', icon: dinnerPng },
+              { label: 'aarohan_label', time: 'aarohan_time', icon: flagHostingPng },
+              { label: 'prasadi2_label', time: 'prasadi2_time', icon: dinnerPng }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
                 className="program-item"
                 variants={itemVariants}
-                whileHover={{ y: -10, boxShadow: '0 10px 30px rgba(0,0,0,0.1)' }}
+                whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.15)' }}
               >
-                <h3>{t(item.label)}</h3>
-                <span className="program-time">{t(item.time)}</span>
+                <img src={item.icon} alt="" className="program-icon left-icon" loading="lazy" />
+                <div className="program-content">
+                  <h3>{t(item.label)}</h3>
+                  <span className="program-time">{t(item.time)}</span>
+                </div>
+                <img src={item.icon} alt="" className="program-icon right-icon" loading="lazy" />
               </motion.div>
-            ))}
+            ))
+            }
           </div>
         </ScrollRevealSection>
 

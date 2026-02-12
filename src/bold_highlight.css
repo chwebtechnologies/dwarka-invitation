@@ -1,0 +1,6 @@
+/* Bold text styling for description */
+.main-description strong {
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 0 0 1px rgba(255, 215, 0, 0.3);
+}
