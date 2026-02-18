@@ -7,20 +7,15 @@ import './i18n';
 import './index.css';
 
 // Assets
-import backgroundImg from './assets/background.png';
 import marigoldImg from './assets/marigold.png';
-import idolImg from './assets/idol.png';
-import templeImg from './assets/temple.png';
+import templeImg from './assets/temple.webp';
 import mandalaImg from './assets/mandala.png';
 import peacockFeatherImg from './assets/peacock_feather.png';
 import ganeshaImg from './assets/ganesha.jpg';
 import dwarkadhishImg from './assets/dwarkadhish.jpg';
 import toranImg from './assets/toran.gif';
-import dahiMatkiImg from './assets/dahi_matki.png';
-import fluteImg from './assets/krishna_flute.png';
 import pujaPng from './assets/pooja.png';
 import shobhayatraPng from './assets/rathyatra.png';
-import rasGarbaPng from './assets/ras_garba.png';
 import dinnerPng from './assets/dinner.png';
 import flagHostingPng from './assets/flaghosting.png';
 
@@ -270,9 +265,11 @@ const InvitationContent = () => {
 
         {/* Description Section */}
         <ScrollRevealSection className="parallax-section">
-          <motion.p variants={itemVariants} className="main-description">
-            <Trans i18nKey="description" />
-          </motion.p>
+          <motion.div
+            variants={itemVariants}
+            className="main-description"
+            dangerouslySetInnerHTML={{ __html: t('description') }}
+          />
         </ScrollRevealSection>
 
         {/* Program Section */}
@@ -282,11 +279,10 @@ const InvitationContent = () => {
 
           <div className="program-grid">
             {[
-              { label: 'puja_label', time: 'puja_time', icon: pujaPng },
-              { label: 'shobhayatra_label', time: 'shobhayatra_time', icon: shobhayatraPng },
-              { label: 'sangeet_label', time: 'sangeet_time', icon: rasGarbaPng },
+              { label: 'puja_label', time: 'puja_time', location: 'puja_location', icon: pujaPng },
+              { label: 'shobhayatra_label', time: 'shobhayatra_time', location: 'shobhayatra_location', icon: shobhayatraPng },
               { label: 'prasadi_label', time: 'prasadi_time', icon: dinnerPng },
-              { label: 'aarohan_label', time: 'aarohan_time', icon: flagHostingPng },
+              { label: 'aarohan_label', time: 'aarohan_time', location: 'aarohan_location', icon: flagHostingPng },
               { label: 'prasadi2_label', time: 'prasadi2_time', icon: dinnerPng }
             ].map((item, idx) => (
               <motion.div
@@ -299,6 +295,7 @@ const InvitationContent = () => {
                 <div className="program-content">
                   <h3>{t(item.label)}</h3>
                   <span className="program-time">{t(item.time)}</span>
+                  {item.location && <span className="program-location" style={{ display: 'block', fontSize: '0.9em', marginTop: '0.2rem', opacity: 0.9 }}>{t(item.location)}</span>}
                 </div>
                 <img src={item.icon} alt="" className="program-icon right-icon" loading="lazy" />
               </motion.div>
@@ -312,16 +309,42 @@ const InvitationContent = () => {
           <motion.h2 variants={itemVariants} className="section-title">{t('inviter_title')}</motion.h2>
           <motion.div variants={itemVariants} className="divider"></motion.div>
           <motion.div variants={itemVariants} className="inviter-names-container">
-            {t('inviter_names').split('\n').map((line, idx) => {
-              const names = line.split('|');
-              return (
-                <div key={idx} className={names.length > 1 ? "inviter-row" : "inviter-single-line"}>
-                  {names.map((name, i) => (
-                    <span key={i} className="inviter-name">{name.trim()}</span>
-                  ))}
-                </div>
-              );
-            })}
+            {(() => {
+              const namesData = t('inviter_names', { returnObjects: true });
+
+              if (Array.isArray(namesData)) {
+                return namesData.map((item, idx) => {
+                  if (item.type === 'header') {
+                    return <div key={idx} className="inviter-header">{item.text}</div>;
+                  }
+                  if (item.type === 'header-small') {
+                    return <div key={idx} className="inviter-header-small">{item.text}</div>;
+                  }
+                  if (item.type === 'couple') {
+                    return <div key={idx} className="inviter-couple">{item.text}</div>;
+                  }
+                  if (item.type === 'kids') {
+                    return <div key={idx} className="inviter-kids">{item.text}</div>;
+                  }
+                  if (item.type === 'spacing') {
+                    return <div key={idx} className="inviter-spacing"></div>;
+                  }
+                  return null;
+                });
+              }
+
+              // Fallback for legacy string format
+              return typeof namesData === 'string' ? namesData.split('\n').map((line, idx) => {
+                const names = line.split('|');
+                return (
+                  <div key={idx} className={names.length > 1 ? "inviter-row" : "inviter-single-line"}>
+                    {names.map((name, i) => (
+                      <span key={i} className="inviter-name">{name.trim()}</span>
+                    ))}
+                  </div>
+                );
+              }) : null;
+            })()}
           </motion.div>
           <motion.div
             className="family-name"
@@ -343,16 +366,17 @@ const InvitationContent = () => {
               className="map-card"
               whileHover={{ scale: 1.02 }}
             >
-              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('temple_location_btn')}<img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
+              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('venue_location_btn')} <img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
               <div className="map-container relative">
                 <iframe
-                  title="Dwarkadhish Temple"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.06319135929!2d68.9647832751165!3d22.23768107973162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569c3ab7c4e9e5%3A0x31b7c3111df48f4!2sDwarkadhish%20Temple!5e0!3m2!1sen!2sin!4v1770658909593!5m2!1sen!2sin"
+                  title="Venue Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.8925203237072!2d68.9689805!3d22.2441564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569dd72b9181d9%3A0x3965c9302c036bd9!2sLemon%20Tree%20Premier%2C%20Dwarka!5e0!3m2!1sen!2sin!4v1770919015120!5m2!1sen!2sin"
                   width="100%"
                   height="250"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
             </motion.div>
@@ -361,11 +385,11 @@ const InvitationContent = () => {
               className="map-card"
               whileHover={{ scale: 1.02 }}
             >
-              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('venue_location_btn')} <img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
+              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('temple_location_btn')}<img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
               <div className="map-container relative">
                 <iframe
-                  title="Venue Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.021150800557!2d68.96202317511649!3d22.23927627973055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569de0d80cc769%3A0x7e6dfeb50b3c6c26!2sVanjha%20Samaj%20Darji%20Wadi!5e0!3m2!1sen!2sin!4v1770658998107!5m2!1sen!2sin"
+                  title="Dwarkadhish Temple"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.06319135929!2d68.9647832751165!3d22.23768107973162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569c3ab7c4e9e5%3A0x31b7c3111df48f4!2sDwarkadhish%20Temple!5e0!3m2!1sen!2sin!4v1770658909593!5m2!1sen!2sin"
                   width="100%"
                   height="250"
                   style={{ border: 0 }}
@@ -458,7 +482,7 @@ const InvitationContent = () => {
 
       {/* Floating WhatsApp Icon */}
       <motion.a
-        href={`https://wa.me/919428317105?text=${encodeURIComponent(t('whatsapp_message'))}`}
+        href={`https://wa.me/14072528045?text=${encodeURIComponent(t('whatsapp_message'))}`}
         target="_blank"
         rel="noopener noreferrer"
         className="whatsapp-float"

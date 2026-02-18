@@ -1,20 +1,24 @@
 :root {
-  --bg-color: #003333;
-  /* Deep Peacock Teal */
-  --bg-gradient: radial-gradient(circle at center, #005555 0%, #003333 100%);
+  --bg-color: #2b0000;
+  /* Deep Royal Maroon */
+  --bg-gradient: radial-gradient(circle at center, #660000 10%, #300000 80%, #1a0000 100%);
+  /* Rich Red Gradient */
+
   --primary-color: #ffd700;
   /* Gold */
   --accent-color: #ff8c00;
   /* Dark Orange/Saffron */
+
   --text-color: #ffffff;
-  /* White for dark bg */
-  --text-secondary: #e0f2f1;
-  /* Light Teal/White */
-  --border-color: rgba(255, 215, 0, 0.3);
+  /* White */
+  --text-secondary: #fff5e6;
+  /* Warm Cream/White */
+
+  --border-color: rgba(255, 215, 0, 0.4);
   /* Gold border */
-  --card-bg: rgba(0, 51, 51, 0.4);
-  /* Dark Glass */
-  --card-border: rgba(255, 215, 0, 0.2);
+  --card-bg: rgba(60, 10, 10, 0.5);
+  /* Dark Red Glass */
+  --card-border: rgba(255, 215, 0, 0.3);
 
   --font-main: 'Marcellus', serif;
   --font-decorative: 'Yatra One', cursive;
@@ -122,7 +126,7 @@ p {
   display: flex;
   gap: 0.5rem;
   padding: 0.5rem;
-  background: rgba(0, 51, 51, 0.6);
+  background: rgba(40, 0, 0, 0.6);
   backdrop-filter: blur(15px);
   border-radius: 30px;
   border: 1px solid var(--border-color);
@@ -143,7 +147,7 @@ p {
 
 .lang-btn.active {
   background: var(--primary-color);
-  color: #003333;
+  color: #2b0000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -195,7 +199,7 @@ p {
   background-image: url('./assets/peacock_feather.png');
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.12;
+  opacity: 0.2;
   transform: rotate(25deg);
   z-index: 0;
   pointer-events: none;
@@ -211,7 +215,7 @@ p {
   background-image: url('./assets/peacock_feather.png');
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.12;
+  opacity: 0.2;
   transform: scaleX(-1) rotate(25deg);
   z-index: 0;
   pointer-events: none;
@@ -219,44 +223,44 @@ p {
 
 /* 2nd Card: Dahi Matki */
 .content-wrapper>.parallax-section:nth-child(2)::before {
-  background-image: url('./assets/dahi_matki.png');
+  background-image: url('./assets/peacock_feather.png');
   width: 250px;
   height: 250px;
   bottom: -30px;
   left: -50px;
   transform: rotate(-10deg);
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 .content-wrapper>.parallax-section:nth-child(2)::after {
-  background-image: url('./assets/dahi_matki.png');
+  background-image: url('./assets/peacock_feather.png');
   width: 250px;
   height: 250px;
   bottom: -30px;
   right: -50px;
   transform: scaleX(-1) rotate(-10deg);
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 /* 3rd Card: Krishna Flute */
 .content-wrapper>.parallax-section:nth-child(3)::before {
-  background-image: url('./assets/krishna_flute.png');
+  background-image: url('./assets/peacock_feather.png');
   width: 280px;
   height: 280px;
   bottom: -50px;
   left: -40px;
   transform: rotate(45deg);
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 .content-wrapper>.parallax-section:nth-child(3)::after {
-  background-image: url('./assets/krishna_flute.png');
+  background-image: url('./assets/peacock_feather.png');
   width: 280px;
   height: 280px;
   bottom: -50px;
   right: -40px;
   transform: scaleX(-1) rotate(45deg);
-  opacity: 0.15;
+  opacity: 0.25;
 }
 
 /* 4th Card: Peacock Again (Inherits default or update explicitly if needed to ensure) */
@@ -606,7 +610,7 @@ h1 {
 .inviter-names-container {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0;
   width: 100%;
 }
 
@@ -767,7 +771,7 @@ h1 {
   transform: translateY(-50%);
   height: 80vh;
   width: auto;
-  opacity: 0.3;
+  opacity: 0.4;
   /* Increased opacity for dark theme */
   z-index: 2;
   pointer-events: none;
@@ -910,7 +914,7 @@ h1 {
   }
 
   .inviter-names-container {
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .inviter-row {
@@ -929,7 +933,7 @@ h1 {
   .mandala-bg {
     width: 120vw;
     height: 120vw;
-    opacity: 0.1;
+    opacity: 0.2;
   }
 
   .map-grid {
@@ -947,7 +951,7 @@ h1 {
 
   .peacock-side {
     height: 50vh;
-    opacity: 0.08;
+    opacity: 0.15;
   }
 
   .address {
@@ -1066,7 +1070,7 @@ h1 {
 
   /* Inviter Names - Stacked evenly */
   .inviter-names-container {
-    gap: 1.5rem;
+    gap: 1rem;
     /* Gap between rows */
   }
 
@@ -1163,7 +1167,7 @@ h1 {
   .language-switcher {
     pointer-events: auto;
     /* Re-enable clicks on the button itself */
-    background: rgba(0, 51, 51, 0.85);
+    background: rgba(40, 0, 0, 0.85);
     border-color: var(--primary-color);
   }
 }
@@ -1209,44 +1213,72 @@ h1 {
 /* Tablet and Mobile adjustments (max-width: 1023px) */
 @media (max-width: 1023px) {
   .program-item {
-    flex-direction: row !important;
-    /* Force row direction */
-    justify-content: space-between;
+    display: grid !important;
+    grid-template-areas:
+      "time time time"
+      "img-left title img-right"
+      "location location location";
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+    padding: 1rem !important;
     align-items: center;
-    padding: 0.8rem 0.8rem !important;
-    /* Compact padding */
-    gap: 0.8rem;
+    justify-items: center;
+    text-align: center;
   }
 
   .program-content {
-    flex: 1;
-    text-align: center;
-    padding: 0 0.5rem;
+    display: contents !important;
   }
+
 
   .program-icon {
     margin-bottom: 0 !important;
-    width: 50px !important;
-    /* Smaller icon for mobile row layout */
-    height: 50px !important;
-    flex-shrink: 0;
+    width: clamp(45px, 12vw, 70px) !important;
+    height: clamp(45px, 12vw, 70px) !important;
+    object-fit: contain;
+  }
+
+  .program-icon.left-icon {
+    grid-area: img-left;
+    display: block !important;
   }
 
   .program-icon.right-icon {
-    display: block;
-    /* Removed transform: scaleX(-1) to match left side */
+    grid-area: img-right;
+    display: block !important;
   }
 
-  /* Adjust headings in this layout */
-  .program-item h3 {
-    margin-bottom: 0.2rem;
-    font-size: 1.05rem;
+  .program-content h3 {
+    grid-area: title;
+    margin: 0 !important;
+    font-size: clamp(0.9rem, 4vw, 1.4rem) !important;
     line-height: 1.2;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+    /* Ensure long words don't overflow */
   }
 
-  .program-time {
-    margin-top: 0;
-    font-size: 0.9rem;
+  .program-content .program-time {
+    grid-area: time;
+    margin: 0 0 0.5rem 0 !important;
+    font-size: clamp(0.9rem, 3.5vw, 1.1rem) !important;
+    font-weight: 700;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+
+  .program-content .program-location {
+    grid-area: location;
+    margin: 0.5rem 0 0 0 !important;
+    font-size: clamp(0.8rem, 3vw, 1rem) !important;
+    width: 100%;
+    opacity: 0.9;
+    color: var(--text-secondary);
   }
 }
 
@@ -1255,4 +1287,91 @@ h1 {
   font-weight: 700;
   color: var(--primary-color);
   text-shadow: 0 0 1px rgba(255, 215, 0, 0.3);
+}
+
+/* Premium Gold Foil Text Highlight */
+.text-highlight-gold {
+  /* display: block; Don't force block if inside a line, but names are usually separate lines in the user HTML */
+  display: inline-block;
+  padding: 0 5px;
+  font-family: var(--font-decorative);
+  font-size: 1.6rem !important;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+  /* Gold Foil Gradient Effect - Updated to match theme warmth */
+  background: linear-gradient(to right,
+      #FFD700,
+      #FFFACD,
+      #FFC125,
+      #FFD700,
+      #D4AF37);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  /* Essential for some browsers */
+
+  /* Drop shadow to lift it off the background */
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.7));
+
+  transition: all 0.3s ease;
+}
+
+.text-highlight-gold:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+@media (max-width: 768px) {
+  .text-highlight-gold {
+    font-size: 1.35rem !important;
+  }
+}
+
+/* New Inviter Section Styles */
+.inviter-header {
+  font-family: var(--font-decorative);
+  font-size: 1.4rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.inviter-header-small {
+  font-family: var(--font-decorative);
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  opacity: 0.9;
+  line-height: 1.1;
+}
+
+.inviter-couple {
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.inviter-kids {
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 0.1rem;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+.inviter-spacing {
+  height: 0.3rem;
 }
