@@ -3,6 +3,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
 
 import { Routes, Route, useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import Itinerary from './Itinerary';
 import './i18n';
 import './index.css';
 
@@ -534,6 +535,7 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<InvitationContent />} />
+      <Route path="/itinerary" element={<Itinerary />} />
       <Route path="/:lang" element={<InvitationContent />} />
       <Route path="*" element={<Navigate to="/gu" replace />} />
     </Routes>
