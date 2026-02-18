@@ -36,6 +36,8 @@ body {
   color: var(--text-color);
   line-height: 1.8;
   overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app-container {
@@ -128,6 +130,7 @@ p {
   padding: 0.5rem;
   background: rgba(40, 0, 0, 0.6);
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 30px;
   border: 1px solid var(--border-color);
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
@@ -739,6 +742,13 @@ h1 {
   border: 2px solid white;
 }
 
+.whatsapp-float.left-float {
+  right: auto;
+  left: 30px;
+  background-color: #25d366;
+  /* Same color or differentiate if needed */
+}
+
 .whatsapp-float:hover {
   background-color: #128c7e;
   box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
@@ -866,17 +876,19 @@ h1 {
 /* Mobile Responsive */
 @media (max-width: 768px) {
   .content-wrapper {
-    padding: 8.5rem 1.2rem 1rem;
+    padding: 4.5rem 0.8rem 0.5rem;
     /* Increased top padding to clear language switcher and toran */
-    gap: 1.2rem;
+    gap: 0.6rem;
     /* Reduced from 1.5rem */
   }
 
   .parallax-section {
-    padding: 1.2rem 1.2rem;
+    padding: 0.8rem 0.6rem;
     /* Reduced from 1.5rem */
-    gap: 0.5rem;
+    gap: 0.3rem;
     /* Reduced from 0.6rem */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   h1 {
@@ -885,12 +897,14 @@ h1 {
   }
 
   .section-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .program-grid {
     grid-template-columns: 1fr;
-    gap: 1.2rem;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
   }
 
   .hero-gods-layout {
@@ -923,11 +937,11 @@ h1 {
   }
 
   .divider {
-    margin: 1rem auto;
+    margin: 0.5rem auto;
   }
 
   .section-title {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
   }
 
   .mandala-bg {
@@ -942,11 +956,16 @@ h1 {
   }
 
   .whatsapp-float {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     bottom: 25px;
-    right: 25px;
-    font-size: 28px;
+    right: 20px;
+    font-size: 24px;
+  }
+
+  .whatsapp-float.left-float {
+    left: 20px;
+    right: auto;
   }
 
   .peacock-side {
@@ -1219,8 +1238,8 @@ h1 {
       "img-left title img-right"
       "location location location";
     grid-template-columns: auto 1fr auto;
-    gap: 0.5rem;
-    padding: 1rem !important;
+    gap: 0.2rem;
+    padding: 0.4rem !important;
     align-items: center;
     justify-items: center;
     text-align: center;
@@ -1233,8 +1252,8 @@ h1 {
 
   .program-icon {
     margin-bottom: 0 !important;
-    width: clamp(45px, 12vw, 70px) !important;
-    height: clamp(45px, 12vw, 70px) !important;
+    width: clamp(35px, 10vw, 55px) !important;
+    height: clamp(35px, 10vw, 55px) !important;
     object-fit: contain;
   }
 
@@ -1253,7 +1272,7 @@ h1 {
     margin: 0 !important;
     font-size: clamp(0.9rem, 4vw, 1.4rem) !important;
     line-height: 1.2;
-    padding: 0 0.5rem;
+    padding: 0 0.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1263,18 +1282,18 @@ h1 {
 
   .program-content .program-time {
     grid-area: time;
-    margin: 0 0 0.5rem 0 !important;
-    font-size: clamp(0.9rem, 3.5vw, 1.1rem) !important;
+    margin: 0 0 0.2rem 0 !important;
+    font-size: clamp(0.85rem, 3.5vw, 1rem) !important;
     font-weight: 700;
     width: 100%;
     border-bottom: 1px solid rgba(255, 215, 0, 0.2);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.2rem;
     color: var(--primary-color);
   }
 
   .program-content .program-location {
     grid-area: location;
-    margin: 0.5rem 0 0 0 !important;
+    margin: 0.2rem 0 0 0 !important;
     font-size: clamp(0.8rem, 3vw, 1rem) !important;
     width: 100%;
     opacity: 0.9;
@@ -1343,11 +1362,11 @@ h1 {
 
 .inviter-header-small {
   font-family: var(--font-decorative);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--primary-color);
   text-align: center;
-  margin-top: 0;
-  margin-bottom: 0;
+  margin-top: -0.2rem;
+  margin-bottom: -0.2rem;
   opacity: 0.9;
   line-height: 1.1;
 }
@@ -1362,12 +1381,25 @@ h1 {
   line-height: 1.2;
 }
 
+.inviter-couple-highlight {
+  font-family: var(--font-main);
+  font-size: 1.25rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 0;
+  font-weight: 700;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+  letter-spacing: 0.5px;
+  margin-top: 0.2rem;
+}
+
 .inviter-kids {
   font-family: var(--font-main);
   font-size: 1.15rem;
   color: var(--text-secondary);
   text-align: center;
-  margin-top: 0.1rem;
+  margin-top: -0.1rem;
   letter-spacing: 1px;
   line-height: 1.1;
 }
