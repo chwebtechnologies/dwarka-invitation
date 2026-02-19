@@ -19,11 +19,13 @@ const resources = {
       "shobhayatra_location": "Lemon Tree to Darji ni vaadi (By Car)\nMatki Chowk to Dwarkadhish Temple (By Music Shobhayatra)",
       "prasadi_label": "Prabhu Prasadi",
       "prasadi_time": "26-02-2026, 08:00 PM",
+      "prasadi_location": "Vanjha Darji Gnati Ni Vadi",
       "aarohan_label": "Dhwajaji Aarohan",
       "aarohan_time": "27-02-2026, 06:00 AM",
       "aarohan_location": "Dwarkadhish temple",
       "prasadi2_label": "Dhwaja Prabhu Prasadi",
       "prasadi2_time": "27-02-2026, 12:00 PM",
+      "prasadi2_location": "Vanjha Darji Gnati Ni Vadi",
       "inviter_title": "Inviter",
       "inviter_names": [
         { "type": "header", "text": "In Loving Memory of" },
@@ -34,7 +36,7 @@ const resources = {
         { "type": "couple", "text": "Ashokbhai & Bhanuben Chavda" },
         { "type": "couple", "text": "Sunil & Hiral Kumar" },
         { "type": "couple", "text": "Mitesh & Yaritza (Skye) Chavda" },
-        { "type": "couple", "text": "Sejul & Kiran Shah" },
+        { "type": "couple", "text": "Sejulbhai & Kiranben Shah" },
         { "type": "couple", "text": "Jigneshbhai & Bhargaviben Patel" },
         { "type": "header-small", "text": "&" },
         { "type": "kids", "text": "Diya • Sonam • Avaani • Aarya • Veer • Sanvi" },
@@ -46,6 +48,7 @@ const resources = {
       "location_address": "Lemon Tree Premier, Dwarka, Gujarat, India",
       "temple_location_btn": "Dwarkadhish Temple",
       "venue_location_btn": "Dhwajaji Puja Sthal",
+      "prasad_location_btn": "Prasad Sthal",
       "whatsapp_message": "Jay Dwarkadhish",
       "family_name": "Chavda Family & Khashiyat Family"
     }
@@ -67,11 +70,13 @@ const resources = {
       "shobhayatra_location": "लेमन ट्री से दर्जी नी वाड़ी (गाड़ी द्वारा)\nमटकी चौक से द्वारकाधीश मंदिर (संगीत शोभायात्रा)",
       "prasadi_label": "प्रभु प्रसादी",
       "prasadi_time": "26-02-2026, रात 08:00 बजे",
+      "prasadi_location": "वांझा दरजी ज्ञाती की वाड़ी",
       "aarohan_label": "ध्वजाजी आरोहण",
       "aarohan_time": "27-02-2026, सुबह 06:00 बजे",
       "aarohan_location": "द्वारकाधीश मंदिर",
       "prasadi2_label": "ध्वजा प्रभु प्रसादी",
       "prasadi2_time": "27-02-2026, दोपहर 12:00 बजे",
+      "prasadi2_location": "वांझा दरजी ज्ञाती की वाड़ी",
       "inviter_title": "निमंत्रक",
       "inviter_names": [
         { "type": "header", "text": "भावभीनी श्रद्धांजलि" },
@@ -82,7 +87,7 @@ const resources = {
         { "type": "couple", "text": "अशोकभाई एवं भानुबेन चावड़ा" },
         { "type": "couple", "text": "सुनील एवं हिरल कुमार" },
         { "type": "couple", "text": "मितेश एवं यारित्ज़ा (स्काई) चावड़ा" },
-        { "type": "couple", "text": "सेजुल एवं किरण शाह" },
+        { "type": "couple", "text": "सेजुलभाई एवं किरणबेन शाह" },
         { "type": "couple", "text": "जिग्नेशभाई एवं भार्गवीबेन पटेल" },
         { "type": "header-small", "text": "एवं" },
         { "type": "kids", "text": "दिया • सोनम • अवनी • आर्या • वीर • सान्वी" },
@@ -94,6 +99,7 @@ const resources = {
       "location_address": "लेमन ट्री प्रीमियर, द्वारका, गुजरात, भारत",
       "temple_location_btn": "द्वारकाधीश मंदिर",
       "venue_location_btn": "ध्वजाजी पूजा स्थल",
+      "prasad_location_btn": "प्रसाद स्थल",
       "whatsapp_message": "जय द्वारकाधीश",
       "family_name": "चावडा परिवार एवं खाशियत परिवार"
     }
@@ -115,11 +121,13 @@ const resources = {
       "shobhayatra_location": "લેમન ટ્રી થી દરજી ની વાડી (ગાડી દ્વારા)\nમટકી ચોક થી દ્વારકાધીશ મંદિર (સંગીત શોભાયાત્રા)",
       "prasadi_label": "પ્રભુ પ્રસાદી",
       "prasadi_time": "૨૬-૦૨-૨૦૨૬, રાત્રે ૦૮:૦૦ કલાકે",
+      "prasadi_location": "વાંઝા દરજી જ્ઞાતિ ની વાડી",
       "aarohan_label": "ધ્વજાજી આરોહણ",
       "aarohan_time": "૨૭-૦૨-૨૦૨૬, સવારે ૦૬:૦૦ કલાકે",
       "aarohan_location": "શ્રી દ્વારકાધીશ મંદિર",
       "prasadi2_label": "ધ્વજા પ્રભુ પ્રસાદી",
       "prasadi2_time": "૨૭-૦૨-૨૦૨૬, બપોરે ૧૨:૦૦ કલાકે",
+      "prasadi2_location": "વાંઝા દરજી જ્ઞાતિ ની વાડી",
       "inviter_title": "નિમંત્રક",
       "inviter_names": [
         { "type": "header", "text": "સ્વર્ગસ્થ સ્મરણાર્થે" },
@@ -130,7 +138,7 @@ const resources = {
         { "type": "couple", "text": "અશોકભાઈ અને ભાનુબેન ચાવડા" },
         { "type": "couple", "text": "સુનીલ અને હીરલ કુમાર" },
         { "type": "couple", "text": "મિતેશ અને યારિત્ઝા (સ્કાય) ચાવડા" },
-        { "type": "couple", "text": "સેજુલ અને કિરણ શાહ" },
+        { "type": "couple", "text": "સેજુલભાઈ અને કિરણબેન શાહ" },
         { "type": "couple", "text": "જીગ્નેશભાઈ અને ભાર્ગવીબેન પટેલ" },
         { "type": "header-small", "text": "અને" },
         { "type": "kids", "text": "દિયા • સોનમ • અવાની • આર્યા • વીર • સાન્વી" },
@@ -142,6 +150,7 @@ const resources = {
       "location_address": "લેમન ટ્રી પ્રીમિયર, દ્વારકા, ગુજરાત, ભારત",
       "temple_location_btn": "દ્વારકાધીશ મંદિર",
       "venue_location_btn": "ધ્વજાજી પૂજા સ્થળ",
+      "prasad_location_btn": "પ્રસાદ સ્થળ",
       "whatsapp_message": "જય દ્વારકાધીશ",
       "family_name": "ચાવડા પરિવાર અને ખાશિયત પરિવાર"
     }

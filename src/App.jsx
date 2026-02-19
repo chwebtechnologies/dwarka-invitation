@@ -243,7 +243,7 @@ const InvitationContent = () => {
 
             <div className="god-column">
               <div className="god-img-wrapper">
-                <img src={dwarkadhishImg} alt="Dwarkadhish" className="god-img" loading="eager" fetchpriority="high" decoding="async" />
+                <img src={dwarkadhishImg} alt="Dwarkadhish" className="god-img dwarkadhish-img" loading="eager" fetchpriority="high" decoding="async" />
               </div>
               <p className="invocation">{t('jai_dwarkadhish')}</p>
             </div>
@@ -282,9 +282,9 @@ const InvitationContent = () => {
             {[
               { label: 'puja_label', time: 'puja_time', location: 'puja_location', icon: pujaPng },
               { label: 'shobhayatra_label', time: 'shobhayatra_time', location: 'shobhayatra_location', icon: shobhayatraPng },
-              { label: 'prasadi_label', time: 'prasadi_time', icon: dinnerPng },
+              { label: 'prasadi_label', time: 'prasadi_time', location: 'prasadi_location', icon: dinnerPng },
               { label: 'aarohan_label', time: 'aarohan_time', location: 'aarohan_location', icon: flagHostingPng },
-              { label: 'prasadi2_label', time: 'prasadi2_time', icon: dinnerPng }
+              { label: 'prasadi2_label', time: 'prasadi2_time', location: 'prasadi2_location', icon: dinnerPng }
             ].map((item, idx) => (
               <motion.div
                 key={idx}
@@ -296,7 +296,7 @@ const InvitationContent = () => {
                 <div className="program-content">
                   <h3>{t(item.label)}</h3>
                   <span className="program-time">{t(item.time)}</span>
-                  {item.location && <span className="program-location" style={{ display: 'block', fontSize: '0.9em', marginTop: '0.2rem', opacity: 0.9, whiteSpace: 'pre-line' }}>{t(item.location)}</span>}
+                  {item.location && <span className="program-location" style={{ display: 'block', fontSize: '0.9em', marginTop: '0.2rem', opacity: 0.9, whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: t(item.location) }} />}
                 </div>
                 <img src={item.icon} alt="" className="program-icon right-icon" loading="lazy" />
               </motion.div>
@@ -363,7 +363,7 @@ const InvitationContent = () => {
           <motion.h2 variants={itemVariants} className="section-title">{t('location_title')}</motion.h2>
           <motion.div variants={itemVariants} className="divider"></motion.div>
 
-          <motion.p variants={itemVariants} className="address">{t('location_address')}</motion.p>
+          {/* <motion.p variants={itemVariants} className="address">{t('location_address')}</motion.p> */}
 
           <motion.div variants={itemVariants} className="map-grid">
             <motion.div
@@ -402,6 +402,29 @@ const InvitationContent = () => {
                 ></iframe>
               </div>
             </motion.div>
+
+            <motion.div
+              className="map-card map-card-centered"
+              whileHover={{ scale: 1.02 }}
+            >
+              <h3 style={{ whiteSpace: 'nowrap', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>
+                <img src={dinnerPng} className="map-marigold-icon" alt="" loading="lazy" decoding="async" />
+                {t('prasad_location_btn')}
+                <img src={dinnerPng} className="map-marigold-icon" alt="" loading="lazy" decoding="async" />
+              </h3>
+              <div className="map-container relative">
+                <iframe
+                  title="Prasad Sthal"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.0211502663497!2d68.9645981!3d22.2392763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569de0d80cc769%3A0x7e6dfeb50b3c6c26!2sVanjha%20Samaj%20Darji%20Wadi!5e0!3m2!1sen!2sin!4v1771434898134!5m2!1sen!2sin"
+                  width="100%"
+                  height="250"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </motion.div>
           </motion.div>
 
           <motion.div variants={itemVariants}>
@@ -435,39 +458,64 @@ const InvitationContent = () => {
           </h1>
         </motion.div>
 
+        {/* English Redirect Button */}
+        {currentLang !== 'en' && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '1rem' }}
+          >
+            <motion.button
+              onClick={() => changeLanguage('en')}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 20px rgba(255, 215, 0, 0.6)",
+                background: "linear-gradient(45deg, #FFC107, #FFD700)"
+              }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                display: 'inline-block',
+                background: 'linear-gradient(45deg, #FFD700, #FFC107)',
+                color: '#2b0000',
+                textDecoration: 'none',
+                padding: '0.9rem 2.5rem',
+                borderRadius: '50px',
+                fontWeight: 700,
+                letterSpacing: '1px',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+                border: '1px solid rgba(255, 215, 0, 0.8)',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-main)',
+                fontSize: '1rem',
+                textTransform: 'uppercase',
+                minWidth: '200px'
+              }}
+            >
+              View in English
+            </motion.button>
+          </motion.div>
+        )}
+
         {/* Footer Credit */}
         <motion.div
           className="footer-credit"
-          initial={{ opacity: 0.4, scale: 1 }}
-          whileInView={{ opacity: 0.4 }}
-          whileHover={{ opacity: 0.8, scale: 1.02, color: 'var(--primary-color)' }}
+          initial={{ opacity: 0.3 }}
+          whileInView={{ opacity: 0.5 }}
           viewport={{ once: true }}
           transition={{ duration: 0.3 }}
           style={{
             textAlign: 'center',
-            padding: '0.2rem',
+            padding: '0.5rem 0',
             marginTop: '0',
-            marginBottom: '0.2rem',
+            marginBottom: '0.5rem',
             color: 'var(--text-color)',
-            whiteSpace: 'nowrap',
-            fontSize: 'clamp(8px, 2.5vw, 11px)', // Smaller size
+            fontSize: '0.85rem',
             cursor: 'pointer',
             width: '100%',
-            overflow: 'visible'
+            fontWeight: 500
           }}
         >
-          <a
-            href="https://chwebtech.in/#team"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: 'inherit',
-              textDecoration: 'none',
-              fontWeight: 500
-            }}
-          >
-            <span style={{ fontSize: 'inherit' }}>Designed by: Dharmi Patel | Developed By: Harshit | </span>
-          </a>
           <a
             href="https://chwebtech.in"
             target="_blank"
@@ -475,10 +523,11 @@ const InvitationContent = () => {
             style={{
               color: 'inherit',
               textDecoration: 'none',
-              fontWeight: 600
             }}
           >
-            CH Web Technologies
+            <span>Designed by: Dharmi Patel</span>
+            <span style={{ margin: '0 0.2rem' }}>|</span>
+            <span style={{ fontWeight: 600 }}>CH Web Technologies</span>
           </a>
         </motion.div>
 

@@ -63,10 +63,19 @@ const Itinerary = () => {
             }
         };
 
-        const imageUrl = window.location.origin + '/ITINERARY.jpeg';
+        const imageUrl = window.location.origin + '/Itinerary.jpeg';
+        const title = "Itinerary - Divine Flag Hoisting Ceremony";
+        const description = "View the complete program schedule for the Divine Flag Hoisting Ceremony at Dwarkadhish Temple.";
+
         updateMetaTag('meta[property="og:image"]', imageUrl);
         updateMetaTag('meta[property="twitter:image"]', imageUrl);
         updateMetaTag('meta[property="og:url"]', window.location.href);
+
+        updateMetaTag('meta[property="og:title"]', title);
+        updateMetaTag('meta[property="twitter:title"]', title);
+        updateMetaTag('meta[name="description"]', description);
+        updateMetaTag('meta[property="og:description"]', description);
+        updateMetaTag('meta[property="twitter:description"]', description);
 
         return () => {
             document.title = originalTitle;
@@ -132,7 +141,7 @@ const Itinerary = () => {
                         className="itinerary-card"
                         style={{
                             background: 'rgba(255, 255, 255, 0.05)',
-                            padding: '2rem',
+                            padding: 'clamp(1.2rem, 4vw, 2rem)',
                             borderRadius: '15px',
                             maxWidth: '800px',
                             width: '100%',
@@ -154,34 +163,34 @@ const Itinerary = () => {
                             </h2>
                         </div>
 
-                        <div className="itinerary-list" style={{ textAlign: 'left', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Departure</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>4:30 am</span>
+                        <div className="itinerary-list" style={{ textAlign: 'left', fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Departure</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>4:30 am</span>
                             </p>
-                            <p style={{ display: 'flex', alignItems: 'center', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))' }} />
-                                <span>Breakfast on the way</span>
+                            <p style={{ display: 'flex', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', marginTop: '3px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))', flexShrink: 0 }} />
+                                <span style={{ textAlign: 'left' }}>Breakfast on the way</span>
                             </p>
-                            <p style={{ display: 'flex', alignItems: 'center', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))' }} />
-                                <span>Check-in at Lemon Tree Hotel</span>
+                            <p style={{ display: 'flex', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', marginTop: '3px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))', flexShrink: 0 }} />
+                                <span style={{ textAlign: 'left' }}>Check-in at Lemon Tree Hotel</span>
                             </p>
-                            <p style={{ display: 'flex', alignItems: 'center', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))' }} />
-                                <span>Lunch</span>
+                            <p style={{ display: 'flex', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', marginTop: '3px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))', flexShrink: 0 }} />
+                                <span style={{ textAlign: 'left' }}>Lunch</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span style={{ textAlign: 'left' }}>Leave for Rukmani Temple & Bet Dwarka</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>4:30 am</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Leave for Rukmani Temple & Bet Dwarka</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>4:30 am</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Dwarkadhish Darshan</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>8:00 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Dwarkadhish Darshan</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>8:00 pm</span>
                             </p>
-                            <p style={{ display: 'flex', alignItems: 'center' }}>
-                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))' }} />
-                                <span>Dinner at Lemon Tree</span>
+                            <p style={{ display: 'flex', alignItems: 'flex-start' }}>
+                                <img src={peacockFeatherImg} alt="" style={{ width: '24px', marginRight: '8px', marginTop: '3px', transform: 'rotate(15deg)', filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.3))', flexShrink: 0 }} />
+                                <span style={{ textAlign: 'left' }}>Dinner at Lemon Tree</span>
                             </p>
                         </div>
                     </motion.div>
@@ -194,7 +203,7 @@ const Itinerary = () => {
                         className="itinerary-card"
                         style={{
                             background: 'rgba(255, 255, 255, 0.05)',
-                            padding: '2rem',
+                            padding: 'clamp(1.2rem, 4vw, 2rem)',
                             borderRadius: '15px',
                             maxWidth: '800px',
                             width: '100%',
@@ -216,76 +225,97 @@ const Itinerary = () => {
                             </h2>
                         </div>
 
-                        <div className="itinerary-list" style={{ textAlign: 'left', fontSize: '1.1rem', lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Breakfast</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>8:00 am</span>
+                        <div className="itinerary-list" style={{ textAlign: 'left', fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)', lineHeight: '1.6', color: 'var(--text-secondary)' }}>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Breakfast</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>8:00 am</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Leave for Dwarka Darshan</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>10:00 am</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Leave for Dwarka Darshan</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>10:00 am</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Pooja at Sharda Peeth</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>11:00 am</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Pooja at Sharda Peeth</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>11:00 am</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Lunch at Sharda Peeth</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>12:30 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Lunch at Sharda Peeth</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>12:30 pm</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Varghodo</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>3:30 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Varghodo</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>3:30 pm</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Dhwaja</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>5:00 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Dhwaja</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>5:00 pm</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
-                                <span>Nageshwar Temple</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>7:00 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '1px dashed rgba(255,255,255,0.1)', paddingBottom: '0.5rem', marginBottom: '0.5rem' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Nageshwar Temple</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>7:00 pm</span>
                             </p>
-                            <p style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                <span>Dinner at Lemon Tree</span>
-                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap' }}>8:00 pm</span>
+                            <p style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                                <span style={{ textAlign: 'left', flex: 1, paddingRight: '0.8rem' }}>Dinner at Lemon Tree</span>
+                                <span style={{ color: 'var(--primary-color)', whiteSpace: 'nowrap', fontSize: '0.9em', marginTop: '3px' }}>8:00 pm</span>
                             </p>
                         </div>
                     </motion.div>
                 </ScrollRevealSection>
 
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    style={{ textAlign: 'center', marginBottom: '2.5rem' }}
+                >
+                    <motion.a
+                        href="/en"
+                        whileHover={{
+                            scale: 1.05,
+                            boxShadow: "0 0 20px rgba(255, 215, 0, 0.6)",
+                            background: "linear-gradient(45deg, #FFC107, #FFD700)"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{
+                            display: 'inline-block',
+                            background: 'linear-gradient(45deg, #FFD700, #FFC107)',
+                            color: '#2b0000',
+                            textDecoration: 'none',
+                            padding: '0.9rem 2.8rem',
+                            borderRadius: '50px',
+                            fontWeight: 700,
+                            letterSpacing: '1.5px',
+                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
+                            transition: 'all 0.3s ease',
+                            border: '1px solid rgba(255, 215, 0, 0.8)',
+                            fontSize: '1rem',
+                            fontFamily: 'var(--font-main)',
+                            textTransform: 'uppercase'
+                        }}
+                    >
+                        VIEW INVITATION
+                    </motion.a>
+                </motion.div>
+
                 {/* Footer Credit */}
                 <motion.div
                     className="footer-credit"
-                    initial={{ opacity: 0.4, scale: 1 }}
-                    whileInView={{ opacity: 0.4 }}
-                    whileHover={{ opacity: 0.8, scale: 1.02, color: 'var(--primary-color)' }}
+                    initial={{ opacity: 0.3 }}
+                    whileInView={{ opacity: 0.5 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3 }}
                     style={{
                         textAlign: 'center',
-                        padding: '0.2rem',
-                        marginTop: '2rem',
-                        marginBottom: '2rem',
+                        padding: '0.5rem 0',
+                        marginTop: '1rem',
+                        marginBottom: '1rem',
                         color: 'var(--text-color)',
-                        whiteSpace: 'nowrap',
-                        fontSize: 'clamp(8px, 2.5vw, 11px)', // Smaller size
+                        fontSize: '0.85rem',
                         cursor: 'pointer',
                         width: '100%',
-                        overflow: 'visible'
+                        fontWeight: 500
                     }}
                 >
-                    <a
-                        href="https://chwebtech.in/#team"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                            color: 'inherit',
-                            textDecoration: 'none',
-                            fontWeight: 500
-                        }}
-                    >
-                        <span style={{ fontSize: 'inherit' }}>Designed by: Dharmi Patel | Developed By: Harshit | </span>
-                    </a>
                     <a
                         href="https://chwebtech.in"
                         target="_blank"
@@ -293,10 +323,11 @@ const Itinerary = () => {
                         style={{
                             color: 'inherit',
                             textDecoration: 'none',
-                            fontWeight: 600
                         }}
                     >
-                        CH Web Technologies
+                        <span>Designed by: Dharmi Patel</span>
+                        <span style={{ margin: '0 0.2rem' }}>|</span>
+                        <span style={{ fontWeight: 600 }}>CH Web Technologies</span>
                     </a>
                 </motion.div>
             </motion.div >
