@@ -1,10 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { useScroll, useTransform, useSpring } from 'framer-motion';
 // Assets
-import marigoldImg from './assets/marigold.png';
 import mandalaImg from './assets/mandala.png';
 import peacockFeatherImg from './assets/peacock_feather.png';
-import toranImg from './assets/toran.gif';
 
 const ScrollRevealSection = ({ children, className }) => {
     const ref = useRef(null);

@@ -175,9 +175,6 @@ const InvitationContent = () => {
       <img src={peacockFeatherImg} className="peacock-side peacock-side-left" alt="" loading="lazy" decoding="async" />
       <img src={peacockFeatherImg} className="peacock-side peacock-side-right" alt="" loading="lazy" decoding="async" />
 
-      {/* Rotating Background Mandala */}
-      <img src={mandalaImg} className="mandala-bg" alt="" loading="lazy" decoding="async" />
-
       {/* Toran Decoration - Mobile Only (Visible at start) */}
       <img src={toranImg} className="toran-header" alt="" loading="eager" decoding="async" />
 
@@ -232,21 +229,21 @@ const InvitationContent = () => {
 
         <ScrollRevealSection className="parallax-section hero-section">
           <motion.div variants={itemVariants} className="hero-gods-layout">
-            <div className="god-column">
-              <div className="god-img-wrapper">
+            <motion.div className="god-column" whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.4))' }}>
+              <div className="god-img-wrapper" style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', borderRadius: '50%' }}>
                 <img src={ganeshaImg} alt="Ganesha" className="god-img" loading="eager" fetchpriority="high" decoding="async" />
               </div>
-              <p className="invocation">{t('ganesh_namah')}</p>
-            </div>
+              <p className="invocation" style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.9rem', letterSpacing: '1px' }}>{t('ganesh_namah')}</p>
+            </motion.div>
 
             <span className="dot-separator">•</span>
 
-            <div className="god-column">
-              <div className="god-img-wrapper">
+            <motion.div className="god-column" whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.4))' }}>
+              <div className="god-img-wrapper" style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', borderRadius: '50%' }}>
                 <img src={dwarkadhishImg} alt="Dwarkadhish" className="god-img dwarkadhish-img" loading="eager" fetchpriority="high" decoding="async" />
               </div>
-              <p className="invocation">{t('jai_dwarkadhish')}</p>
-            </div>
+              <p className="invocation" style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.9rem', letterSpacing: '1px' }}>{t('jai_dwarkadhish')}</p>
+            </motion.div>
           </motion.div>
 
           <motion.div variants={itemVariants} className="marigold-container" style={{ rotate: marigoldRotate }}>
@@ -273,35 +270,41 @@ const InvitationContent = () => {
           />
         </ScrollRevealSection>
 
-        {/* Program Section */}
+        {/* Event Details Section */}
         <ScrollRevealSection className="parallax-section">
           <motion.h2 variants={itemVariants} className="section-title">{t('program_title')}</motion.h2>
           <motion.div variants={itemVariants} className="divider"></motion.div>
 
-          <div className="program-grid">
-            {[
-              { label: 'puja_label', time: 'puja_time', location: 'puja_location', icon: pujaPng },
-              { label: 'shobhayatra_label', time: 'shobhayatra_time', location: 'shobhayatra_location', icon: shobhayatraPng },
-              { label: 'prasadi_label', time: 'prasadi_time', location: 'prasadi_location', icon: dinnerPng },
-              { label: 'aarohan_label', time: 'aarohan_time', location: 'aarohan_location', icon: flagHostingPng },
-              { label: 'prasadi2_label', time: 'prasadi2_time', location: 'prasadi2_location', icon: dinnerPng }
-            ].map((item, idx) => (
-              <motion.div
-                key={idx}
-                className="program-item"
-                variants={itemVariants}
-                whileHover={{ y: -5, boxShadow: '0 10px 30px rgba(0,0,0,0.15)' }}
-              >
-                <img src={item.icon} alt="" className="program-icon left-icon" loading="lazy" />
-                <div className="program-content">
-                  <h3>{t(item.label)}</h3>
-                  <span className="program-time">{t(item.time)}</span>
-                  {item.location && <span className="program-location" style={{ display: 'block', fontSize: '0.9em', marginTop: '0.2rem', opacity: 0.9, whiteSpace: 'pre-line' }} dangerouslySetInnerHTML={{ __html: t(item.location) }} />}
-                </div>
-                <img src={item.icon} alt="" className="program-icon right-icon" loading="lazy" />
-              </motion.div>
-            ))
-            }
+          <div className="details-grid">
+            <motion.div 
+              variants={itemVariants} 
+              className="detail-box"
+              whileHover={{ scale: 1.03, y: -5 }}
+            >
+              <div className="detail-icon">📅</div>
+              <h3>{t('date_label_box')}</h3>
+              <p dangerouslySetInnerHTML={{ __html: t('date_text') }}></p>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="detail-box"
+              whileHover={{ scale: 1.03, y: -5 }}
+            >
+              <div className="detail-icon">⏰</div>
+              <h3>{t('time_label_box')}</h3>
+              <p dangerouslySetInnerHTML={{ __html: t('time_text') }}></p>
+            </motion.div>
+
+            <motion.div 
+              variants={itemVariants} 
+              className="detail-box"
+              whileHover={{ scale: 1.03, y: -5 }}
+            >
+              <div className="detail-icon">📍</div>
+              <h3>{t('venue_label_box')}</h3>
+              <p dangerouslySetInnerHTML={{ __html: t('venue_text') }}></p>
+            </motion.div>
           </div>
         </ScrollRevealSection>
 
@@ -365,7 +368,7 @@ const InvitationContent = () => {
 
           {/* <motion.p variants={itemVariants} className="address">{t('location_address')}</motion.p> */}
 
-          <motion.div variants={itemVariants} className="map-grid">
+          <motion.div variants={itemVariants} className="single-map-container" style={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}>
             <motion.div
               className="map-card"
               whileHover={{ scale: 1.02 }}
@@ -376,49 +379,8 @@ const InvitationContent = () => {
                   title="Venue Location"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.8925203237072!2d68.9689805!3d22.2441564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569dd72b9181d9%3A0x3965c9302c036bd9!2sLemon%20Tree%20Premier%2C%20Dwarka!5e0!3m2!1sen!2sin!4v1770919015120!5m2!1sen!2sin"
                   width="100%"
-                  height="250"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="map-card"
-              whileHover={{ scale: 1.02 }}
-            >
-              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('temple_location_btn')}<img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
-              <div className="map-container relative">
-                <iframe
-                  title="Dwarkadhish Temple"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.06319135929!2d68.9647832751165!3d22.23768107973162!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569c3ab7c4e9e5%3A0x31b7c3111df48f4!2sDwarkadhish%20Temple!5e0!3m2!1sen!2sin!4v1770658909593!5m2!1sen!2sin"
-                  width="100%"
-                  height="250"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                ></iframe>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="map-card map-card-centered"
-              whileHover={{ scale: 1.02 }}
-            >
-              <h3 style={{ whiteSpace: 'nowrap', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>
-                <img src={dinnerPng} className="map-marigold-icon" alt="" loading="lazy" decoding="async" />
-                {t('prasad_location_btn')}
-                <img src={dinnerPng} className="map-marigold-icon" alt="" loading="lazy" decoding="async" />
-              </h3>
-              <div className="map-container relative">
-                <iframe
-                  title="Prasad Sthal"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3693.0211502663497!2d68.9645981!3d22.2392763!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569de0d80cc769%3A0x7e6dfeb50b3c6c26!2sVanjha%20Samaj%20Darji%20Wadi!5e0!3m2!1sen!2sin!4v1771434898134!5m2!1sen!2sin"
-                  width="100%"
-                  height="250"
-                  style={{ border: 0 }}
+                  height="350"
+                  style={{ border: 0, borderRadius: '15px' }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
@@ -427,15 +389,7 @@ const InvitationContent = () => {
             </motion.div>
           </motion.div>
 
-          <motion.div variants={itemVariants}>
-            <img
-              src={templeImg}
-              className="temple-img"
-              alt="Temple"
-              loading="lazy"
-              decoding="async"
-            />
-          </motion.div>
+
         </ScrollRevealSection>
 
         {/* Final Jay Dwarkadhish Chant */}
