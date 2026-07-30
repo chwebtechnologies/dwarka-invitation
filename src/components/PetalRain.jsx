@@ -2,19 +2,24 @@ import React, { useEffect, useState } from 'react';
 
 const PetalRain = ({ isActive, onComplete }) => {
   const [petals, setPetals] = useState([]);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive) {
+      setPetals([]);
+      setVisible(false);
+      return;
+    }
 
-    // Generate 75 petals/confetti pieces
-    const newPetals = Array.from({ length: 75 }).map((_, i) => {
-      const isGold = Math.random() > 0.7; // 30% gold confetti, 70% red petals
+    // Generate 90 petals/confetti pieces for 4-second burst
+    const newPetals = Array.from({ length: 90 }).map((_, i) => {
+      const isGold = Math.random() > 0.6; // 40% gold confetti, 60% red petals
       return {
         id: i,
         left: Math.random() * 100, // Random horizontal start (0 to 100vw)
-        animationDuration: 3 + Math.random() * 3, // Fall between 3s and 6s
-        animationDelay: Math.random() * 2, // Start falling anytime in first 2s
-        size: isGold ? 8 + Math.random() * 8 : 15 + Math.random() * 15, // Confetti vs Petal size
+        animationDuration: 2.5 + Math.random() * 2, // Fast fall speed between 2.5s and 4.5s
+        animationDelay: Math.random() * 1.2, // Staggered start in first 1.2 seconds
+        size: isGold ? 8 + Math.random() * 8 : 14 + Math.random() * 16,
         isGold,
         rotateStart: Math.random() * 360,
         rotateEnd: Math.random() * 360 + 360,
@@ -23,16 +28,19 @@ const PetalRain = ({ isActive, onComplete }) => {
     });
 
     setPetals(newPetals);
+    setVisible(true);
 
-    // Unmount after 7 seconds
+    // Stop shower completely after 4 seconds (4000ms)
     const timer = setTimeout(() => {
+      setVisible(false);
+      setPetals([]);
       if (onComplete) onComplete();
-    }, 7000);
+    }, 4000);
 
     return () => clearTimeout(timer);
   }, [isActive, onComplete]);
 
-  if (!isActive) return null;
+  if (!isActive || !visible) return null;
 
   return (
     <div className="petal-rain-container">
