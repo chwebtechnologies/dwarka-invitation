@@ -1,96 +1,122 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from 'framer-motion';
-
-import { Routes, Route, useParams, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Routes, Route, useParams, useNavigate, Navigate } from 'react-router-dom';
 import Itinerary from './Itinerary';
 import './i18n';
 import './index.css';
 
 // Assets
+import creativeTeaImg from './assets/creative_tea.png';
+import vectorPaanImg from './assets/vector_paan.png';
+import vectorCupImg from './assets/vector_cup.png';
+import vectorPuffImg from './assets/vector_puff.png';
+import peacockImg from './assets/peacock_feather.png';
 import marigoldImg from './assets/marigold.png';
-import templeImg from './assets/temple.webp';
-import mandalaImg from './assets/mandala.png';
-import peacockFeatherImg from './assets/peacock_feather.png';
-import ganeshaImg from './assets/ganesha.jpg';
-import dwarkadhishImg from './assets/dwarkadhish.jpg';
-import toranImg from './assets/toran.gif';
-import pujaPng from './assets/pooja.png';
-import shobhayatraPng from './assets/rathyatra.png';
-import dinnerPng from './assets/dinner.png';
-import flagHostingPng from './assets/flaghosting.png';
 
-const ScrollRevealSection = ({ children, className }) => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.98, 1, 1, 0.98]);
-  const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [30, 0, 0, -30]);
-
-  const smoothOpacity = useSpring(opacity, { stiffness: 60, damping: 20 });
-  const smoothScale = useSpring(scale, { stiffness: 60, damping: 20 });
-  const smoothY = useSpring(y, { stiffness: 60, damping: 20 });
-
-  return (
-    <motion.section
-      ref={ref}
-      className={className}
-      style={{
-        opacity: smoothOpacity,
-        scale: smoothScale,
-        y: smoothY,
-      }}
-    >
-      {children}
-    </motion.section>
-  );
-};
+// Components
+import OpeningCeremony from './components/OpeningCeremony';
 
 const SEOUpdater = ({ currentLang, t }) => {
   useEffect(() => {
     document.documentElement.lang = currentLang;
     document.title = t('invitation_title');
-
-    const updateMeta = (selector, content) => {
-      const element = document.querySelector(selector);
-      if (element) {
-        element.setAttribute('content', content);
-      }
-    };
-
-    updateMeta('meta[name="description"]', t('description'));
-    updateMeta('meta[property="og:title"]', t('invitation_title'));
-    updateMeta('meta[property="og:description"]', t('description'));
-    updateMeta('meta[property="og:url"]', window.location.href);
-    updateMeta('meta[property="og:image"]', 'https://invitation.chwebtech.in/preview.jpg');
-    updateMeta('meta[property="twitter:title"]', t('invitation_title'));
-    updateMeta('meta[property="twitter:description"]', t('description'));
-    updateMeta('meta[property="twitter:image"]', 'https://invitation.chwebtech.in/preview.jpg');
-
-    // Canonical Link
-    let linkRelCanonical = document.querySelector('link[rel="canonical"]');
-    if (!linkRelCanonical) {
-      linkRelCanonical = document.createElement('link');
-      linkRelCanonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(linkRelCanonical);
-    }
-    linkRelCanonical.setAttribute('href', window.location.href);
-
   }, [currentLang, t]);
-
   return null;
+};
+
+// Subtle Floating Dust Particle Component
+const FloatingDust = () => {
+  const dustArray = Array.from({ length: 30 });
+  const { scrollYProgress } = useScroll();
+  const yMove = useTransform(scrollYProgress, [0, 1], [0, -300]);
+  
+  return (
+    <motion.div style={{ y: yMove, position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', overflow: 'hidden' }} className="dust-container">
+      {dustArray.map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ 
+            opacity: Math.random() * 0.5 + 0.1, 
+            scale: Math.random() * 0.5 + 0.5,
+            x: `${Math.random() * 100}vw`,
+            y: `${Math.random() * 100}vh`
+          }}
+          animate={{
+            y: [`${Math.random() * 100}vh`, `${Math.random() * 100 - 20}vh`],
+            opacity: [0.2, 0.6, 0.2]
+          }}
+          transition={{
+            duration: 5 + Math.random() * 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+            ease: "easeInOut"
+          }}
+          style={{
+            position: 'absolute',
+            width: `${Math.random() * 4 + 2}px`,
+            height: `${Math.random() * 4 + 2}px`,
+            background: 'var(--gold-base)',
+            borderRadius: '50%',
+            boxShadow: '0 0 10px var(--gold-base)'
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+};
+
+// Sleek Section Wrapper
+const GlassSection = ({ children, delay = 0, style = {} }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 1, delay, ease: [0.25, 1, 0.5, 1] }}
+      className="glass-card"
+      style={style}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+// Scroll-Reversible Animated Side Assets
+const AnimatedSideAsset = ({ src, side, alt }) => {
+  const isLeft = side === 'left';
+  return (
+    <motion.img
+      src={src}
+      alt={alt}
+      className="side-asset"
+      style={{
+        [isLeft ? 'left' : 'right']: '-50px',
+      }}
+      initial={{ opacity: 0, x: isLeft ? -150 : 150, rotate: isLeft ? -45 : 45 }}
+      whileInView={{ opacity: 0.4, x: 0, rotate: 0 }}
+      viewport={{ once: false, margin: "-10%" }}
+      transition={{ duration: 1.5, ease: "easeOut" }}
+    />
+  );
 };
 
 const InvitationContent = () => {
   const { t, i18n } = useTranslation();
   const { lang } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const [currentLang, setCurrentLang] = useState(i18n.language);
+  
+  // Basic Parallax Hooks
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef });
+  
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 40, damping: 25 });
+  
+  const bgY = useTransform(smoothProgress, [0, 1], ['0%', '50%']);
+  const heroY = useTransform(smoothProgress, [0, 1], ['0%', '80%']);
+  const heroScale = useTransform(smoothProgress, [0, 0.5], [1, 0.8]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.3], [1, 0]);
 
   useEffect(() => {
     const validLangs = ['en', 'hi', 'gu'];
@@ -100,437 +126,166 @@ const InvitationContent = () => {
         setCurrentLang(lang);
       }
     } else if (!lang || lang === '') {
-      // Default to gujarati if no language is specified
-      if (i18n.language !== 'gu') {
-        i18n.changeLanguage('gu');
-        setCurrentLang('gu');
+      if (i18n.language !== 'en') {
+        i18n.changeLanguage('en');
+        setCurrentLang('en');
       }
     } else {
-      // Invalid language in URL, redirect to default
-      navigate('/gu', { replace: true });
+      navigate('/en', { replace: true });
     }
   }, [lang, i18n, navigate]);
 
-  const changeLanguage = (lng) => {
-    navigate(`/${lng}`);
-  };
-
-  const { scrollY } = useScroll();
-  const [isVisible, setIsVisible] = useState(true);
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 50) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
-  });
-
-  const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-
-  // Parallax transforms
-  const backgroundY = useTransform(smoothProgress, [0, 1], ['0%', '20%']);
-  const marigoldRotate = useTransform(smoothProgress, [0, 1], [0, 360]);
-  const contentY = useTransform(smoothProgress, [0, 1], [0, -50]);
-
-  // Language mapping for fonts
-  const getFontFamily = () => {
-    if (currentLang === 'hi') return 'var(--font-hindi)';
-    if (currentLang === 'gu') return 'var(--font-gujarati)';
-    return 'var(--font-main)';
-  };
-
-  const scrollRevealVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.95,
-      y: 40,
-      transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.16, 1, 0.3, 1],
-        staggerChildren: 0.15,
-        delayChildren: 0.05
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-  };
-
   return (
-    <div className={`app-container lang-${currentLang}`} style={{ fontFamily: getFontFamily() }}>
-      {/* Fixed Background for performance */}
-      <div className="app-bg-fixed" />
-
-      {/* Side Peacock Feathers */}
-      <img src={peacockFeatherImg} className="peacock-side peacock-side-left" alt="" loading="lazy" decoding="async" />
-      <img src={peacockFeatherImg} className="peacock-side peacock-side-right" alt="" loading="lazy" decoding="async" />
-
-      {/* Toran Decoration - Mobile Only (Visible at start) */}
-      <img src={toranImg} className="toran-header" alt="" loading="eager" decoding="async" />
+    <div className="app-container" ref={containerRef}>
+      {/* 3D Animated Ribbon Cut Opening Ceremony */}
+      <OpeningCeremony />
+      
+      {/* Clean Parallax Background Layer */}
+      <div className="parallax-bg" />
+      <motion.div className="parallax-pattern" style={{ y: bgY }} />
+      <FloatingDust />
+      
+      <SEOUpdater i18n={i18n} currentLang={currentLang} t={t} />
 
       {/* Language Switcher */}
-      <div className="language-switcher-wrapper">
-        <motion.div
-          className="language-switcher"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{
-            opacity: isVisible ? 1 : 0,
-            scale: isVisible ? 1 : 0.9,
-            pointerEvents: isVisible ? 'auto' : 'none'
-          }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          {['en', 'hi', 'gu'].map((lang) => (
-            <button
-              key={lang}
-              className={`lang-btn ${currentLang === lang ? 'active' : ''}`}
-              onClick={() => changeLanguage(lang)}
-            >
-              {lang === 'en' ? 'EN' : lang === 'hi' ? 'हिंदी' : 'ગુજરાતી'}
-            </button>
-          ))}
-        </motion.div>
+      <div className="lang-switcher-container">
+        {['en', 'hi', 'gu'].map((lng) => (
+          <button
+            key={lng}
+            className={`lang-btn ${currentLang === lng ? 'active' : ''}`}
+            onClick={() => navigate(`/${lng}`)}
+          >
+            {lng === 'en' ? 'EN' : lng === 'hi' ? 'HI' : 'GU'}
+          </button>
+        ))}
       </div>
 
-      {/* SEO Logic */}
-      <SEOUpdater
-        i18n={i18n}
-        currentLang={currentLang}
-        t={t}
-      />
-
-      {/* Decorative Idols (Floating) */}
-      {/* <motion.img
-        src={idolImg}
-        className="idol-side idol-left"
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 0.4, x: 0 }}
-        transition={{ duration: 1 }}
-      />
-      <motion.img
-        src={idolImg}
-        className="idol-side idol-right"
-        initial={{ opacity: 0, x: 50 }}
-        whileInView={{ opacity: 0.4, x: 0 }}
-        transition={{ duration: 1 }}
-      /> */}
-
-      <motion.div className="content-wrapper" style={{ y: contentY }}>
-
-        <ScrollRevealSection className="parallax-section hero-section">
-          <motion.div variants={itemVariants} className="hero-gods-layout">
-            <motion.div className="god-column" whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.4))' }}>
-              <div className="god-img-wrapper" style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', borderRadius: '50%' }}>
-                <img src={ganeshaImg} alt="Ganesha" className="god-img" loading="eager" fetchpriority="high" decoding="async" />
-              </div>
-              <p className="invocation" style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.9rem', letterSpacing: '1px' }}>{t('ganesh_namah')}</p>
-            </motion.div>
-
-            <span className="dot-separator">•</span>
-
-            <motion.div className="god-column" whileHover={{ scale: 1.02, filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.4))' }}>
-              <div className="god-img-wrapper" style={{ boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)', borderRadius: '50%' }}>
-                <img src={dwarkadhishImg} alt="Dwarkadhish" className="god-img dwarkadhish-img" loading="eager" fetchpriority="high" decoding="async" />
-              </div>
-              <p className="invocation" style={{ textAlign: 'center', marginTop: '12px', fontSize: '0.9rem', letterSpacing: '1px' }}>{t('jai_dwarkadhish')}</p>
-            </motion.div>
+      {/* Hero Section */}
+      <section className="hero-section">
+        <motion.div style={{ y: heroY, scale: heroScale, opacity: heroOpacity }} className="hero-content">
+          <motion.div 
+            className="hero-paan-wrapper"
+            initial={{ scale: 0.9, opacity: 0, y: 50 }}
+            animate={{ scale: 1, opacity: 1, y: [-10, 10, -10] }}
+            transition={{ 
+              scale: { duration: 2, ease: "easeOut" },
+              opacity: { duration: 2, ease: "easeOut" },
+              y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }
+            }}
+          >
+            <img src={creativeTeaImg} alt="Creative Tea Setup" className="hero-feast-img" />
           </motion.div>
 
-          <motion.div variants={itemVariants} className="marigold-container" style={{ rotate: marigoldRotate }}>
-            <img src={marigoldImg} alt="Marigold" className="marigold-img" loading="lazy" decoding="async" />
-          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, delay: 0.5 }}
+            className="gold-text"
+          >
+            {t('event_title')}
+          </motion.h1>
+          
+          <motion.p
+            initial={{ opacity: 0, letterSpacing: '0em' }}
+            animate={{ opacity: 1, letterSpacing: '0.2em' }}
+            transition={{ duration: 1.5, delay: 1 }}
+            style={{ fontSize: '1.2rem', textTransform: 'uppercase', color: 'var(--text-secondary)' }}
+          >
+            {t('date_label')}
+          </motion.p>
+        </motion.div>
 
-          <motion.h1 variants={itemVariants}>{t('event_title')}</motion.h1>
-
-          <motion.div variants={itemVariants}>
-            <img src={peacockFeatherImg} className="peacock-feather" alt="Peacock Feather" loading="lazy" decoding="async" />
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="divider"></motion.div>
-
-          <motion.h2 variants={itemVariants} className="date-display">{t('date_label')}</motion.h2>
-        </ScrollRevealSection>
-
-        {/* Description Section */}
-        <ScrollRevealSection className="parallax-section">
-          <motion.div
-            variants={itemVariants}
-            className="main-description"
-            dangerouslySetInnerHTML={{ __html: t('description') }}
+        <motion.div className="scroll-indicator" style={{ opacity: heroOpacity }}>
+          <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.3em', color: 'var(--gold-base)' }}>{t('scroll_text')}</p>
+          <motion.div 
+            className="scroll-line"
+            animate={{ height: ['0px', '80px', '0px'], opacity: [0, 1, 0], y: [0, 20, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           />
-        </ScrollRevealSection>
+        </motion.div>
+      </section>
 
-        {/* Event Details Section */}
-        <ScrollRevealSection className="parallax-section">
-          <motion.h2 variants={itemVariants} className="section-title">{t('program_title')}</motion.h2>
-          <motion.div variants={itemVariants} className="divider"></motion.div>
+      {/* The Vision Section */}
+      <section className="content-section">
+        <AnimatedSideAsset src={vectorPaanImg} side="left" alt="Paan Vector" />
+        <AnimatedSideAsset src={vectorCupImg} side="right" alt="Cup Vector" />
+        <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
+          <span className="gold-text">{t('vision_title')}</span>
+        </motion.h2>
+        <GlassSection style={{ textAlign: 'center', padding: '5rem 4rem' }}>
+          <p style={{ fontSize: '1.4rem', lineHeight: '2', color: 'var(--text-secondary)', fontWeight: 300 }}>
+            {t('vision_text')}
+          </p>
+        </GlassSection>
+      </section>
 
+      {/* Event Details */}
+      <section className="content-section">
+        <AnimatedSideAsset src={vectorPuffImg} side="left" alt="Puff Vector" />
+        <AnimatedSideAsset src={marigoldImg} side="right" alt="Marigold" />
+        <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
+          <span className="gold-text">{t('program_title')}</span>
+        </motion.h2>
+        <GlassSection>
           <div className="details-grid">
-            <motion.div 
-              variants={itemVariants} 
-              className="detail-box"
-              whileHover={{ scale: 1.03, y: -5 }}
-            >
-              <div className="detail-icon">📅</div>
+            <div className="detail-item">
               <h3>{t('date_label_box')}</h3>
-              <p dangerouslySetInnerHTML={{ __html: t('date_text') }}></p>
-            </motion.div>
-
-            <motion.div 
-              variants={itemVariants} 
-              className="detail-box"
-              whileHover={{ scale: 1.03, y: -5 }}
-            >
-              <div className="detail-icon">⏰</div>
+              <p dangerouslySetInnerHTML={{ __html: t('date_text') }} />
+            </div>
+            <div className="detail-item">
               <h3>{t('time_label_box')}</h3>
-              <p dangerouslySetInnerHTML={{ __html: t('time_text') }}></p>
-            </motion.div>
-
-            <motion.div 
-              variants={itemVariants} 
-              className="detail-box"
-              whileHover={{ scale: 1.03, y: -5 }}
-            >
-              <div className="detail-icon">📍</div>
+              <p dangerouslySetInnerHTML={{ __html: t('time_text') }} />
+            </div>
+            <div className="detail-item">
               <h3>{t('venue_label_box')}</h3>
-              <p dangerouslySetInnerHTML={{ __html: t('venue_text') }}></p>
-            </motion.div>
+              <p dangerouslySetInnerHTML={{ __html: t('venue_text') }} />
+            </div>
           </div>
-        </ScrollRevealSection>
+        </GlassSection>
+      </section>
 
-        {/* Inviter Section */}
-        <ScrollRevealSection className="parallax-section">
-          <motion.h2 variants={itemVariants} className="section-title">{t('inviter_title')}</motion.h2>
-          <motion.div variants={itemVariants} className="divider"></motion.div>
-          <motion.div variants={itemVariants} className="inviter-names-container">
-            {(() => {
-              const namesData = t('inviter_names', { returnObjects: true });
+      {/* Protocol & RSVP */}
+      <section className="content-section">
+        <AnimatedSideAsset src={peacockImg} side="left" alt="Peacock Feather" />
+        <AnimatedSideAsset src={vectorPaanImg} side="right" alt="Paan Vector" />
+        <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
+          <span className="gold-text">{t('inviter_title')}</span>
+        </motion.h2>
+        <GlassSection style={{ textAlign: 'center' }}>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', marginBottom: '4rem' }}>
+            {t('protocol_text')}
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: '3rem' }}>
+            <div>
+              <h3 style={{ color: 'var(--gold-base)', letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.9rem', marginBottom: '1rem' }}>Family</h3>
+              <p style={{ fontSize: '1.3rem', color: '#fff' }}>{t('family_name')}</p>
+            </div>
+          </div>
+        </GlassSection>
+      </section>
 
-              if (Array.isArray(namesData)) {
-                return namesData.map((item, idx) => {
-                  if (item.type === 'header') {
-                    return <div key={idx} className="inviter-header">{item.text}</div>;
-                  }
-                  if (item.type === 'header-small') {
-                    return <div key={idx} className="inviter-header-small">{item.text}</div>;
-                  }
-                  if (item.type === 'couple') {
-                    return <div key={idx} className="inviter-couple">{item.text}</div>;
-                  }
-                  if (item.type === 'couple-highlight') {
-                    return <div key={idx} className="inviter-couple-highlight">{item.text}</div>;
-                  }
-                  if (item.type === 'kids') {
-                    return <div key={idx} className="inviter-kids">{item.text}</div>;
-                  }
-                  if (item.type === 'spacing') {
-                    return <div key={idx} className="inviter-spacing"></div>;
-                  }
-                  return null;
-                });
-              }
-
-              // Fallback for legacy string format
-              return typeof namesData === 'string' ? namesData.split('\n').map((line, idx) => {
-                const names = line.split('|');
-                return (
-                  <div key={idx} className={names.length > 1 ? "inviter-row" : "inviter-single-line"}>
-                    {names.map((name, i) => (
-                      <span key={i} className="inviter-name">{name.trim()}</span>
-                    ))}
-                  </div>
-                );
-              }) : null;
-            })()}
-          </motion.div>
-          <motion.div
-            className="family-name"
-            variants={itemVariants}
-          >
-            {t('family_name')}
-          </motion.div>
-        </ScrollRevealSection>
-
-        {/* Map Section */}
-        <ScrollRevealSection className="parallax-section">
-          <motion.h2 variants={itemVariants} className="section-title">{t('location_title')}</motion.h2>
-          <motion.div variants={itemVariants} className="divider"></motion.div>
-
-          {/* <motion.p variants={itemVariants} className="address">{t('location_address')}</motion.p> */}
-
-          <motion.div variants={itemVariants} className="single-map-container" style={{ width: '100%', maxWidth: '600px', margin: '0 auto' }}>
-            <motion.div
-              className="map-card"
-              whileHover={{ scale: 1.02 }}
-            >
-              <h3><img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /> {t('venue_location_btn')} <img src={marigoldImg} className="map-marigold-icon" alt="" loading="lazy" decoding="async" /></h3>
-              <div className="map-container relative">
-                <iframe
-                  title="Venue Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3692.8925203237072!2d68.9689805!3d22.2441564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39569dd72b9181d9%3A0x3965c9302c036bd9!2sLemon%20Tree%20Premier%2C%20Dwarka!5e0!3m2!1sen!2sin!4v1770919015120!5m2!1sen!2sin"
-                  width="100%"
-                  height="350"
-                  style={{ border: 0, borderRadius: '15px' }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
-            </motion.div>
-          </motion.div>
-
-
-        </ScrollRevealSection>
-
-        {/* Final Jay Dwarkadhish Chant */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+      {/* Final Greeting */}
+      <section className="content-section" style={{ minHeight: '40vh' }}>
+        <motion.h2 
+          className="gold-text" 
+          style={{ fontSize: '1.5rem', letterSpacing: '0.4em' }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          style={{ textAlign: 'center' }}
+          transition={{ duration: 1.5 }}
         >
-          <h1
-            style={{
-              margin: '0.5rem 0 0.2rem 0', // Very minimal spacing
-              fontSize: '1.5rem', // Smaller
-              textShadow: '0 2px 10px rgba(197, 160, 89, 0.3)',
-              fontFamily: 'var(--font-decorative)'
-            }}
-          >
-            {t('jai_dwarkadhish')}
-          </h1>
-        </motion.div>
+          {t('jai_dwarkadhish')}
+        </motion.h2>
+      </section>
 
-        {/* English Redirect Button */}
-        {currentLang !== 'en' && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ textAlign: 'center', marginBottom: '2rem', marginTop: '1rem' }}
-          >
-            <motion.button
-              onClick={() => changeLanguage('en')}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 20px rgba(255, 215, 0, 0.6)",
-                background: "linear-gradient(45deg, #FFC107, #FFD700)"
-              }}
-              whileTap={{ scale: 0.95 }}
-              style={{
-                display: 'inline-block',
-                background: 'linear-gradient(45deg, #FFD700, #FFC107)',
-                color: '#2b0000',
-                textDecoration: 'none',
-                padding: '0.9rem 2.5rem',
-                borderRadius: '50px',
-                fontWeight: 700,
-                letterSpacing: '1px',
-                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.3)',
-                border: '1px solid rgba(255, 215, 0, 0.8)',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-main)',
-                fontSize: '1rem',
-                textTransform: 'uppercase',
-                minWidth: '200px'
-              }}
-            >
-              View in English
-            </motion.button>
-          </motion.div>
-        )}
-
-        {/* Footer Credit */}
-        <motion.div
-          className="footer-credit"
-          initial={{ opacity: 0.3 }}
-          whileInView={{ opacity: 0.5 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.3 }}
-          style={{
-            textAlign: 'center',
-            padding: '0.5rem 0',
-            marginTop: '0',
-            marginBottom: '0.5rem',
-            color: 'var(--text-color)',
-            fontSize: '0.85rem',
-            cursor: 'pointer',
-            width: '100%',
-            fontWeight: 500
-          }}
-        >
-          <a
-            href="https://chwebtech.in"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            <span>Designed by: Dharmi Patel</span>
-            <span style={{ margin: '0 0.2rem' }}>|</span>
-            <span style={{ fontWeight: 600 }}>CH Web Technologies</span>
-          </a>
-        </motion.div>
-
-      </motion.div>
-
-      {/* Floating WhatsApp Icon */}
-      <motion.a
-        href={`https://wa.me/14072528045?text=${encodeURIComponent(t('whatsapp_message'))}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whatsapp-float"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ delay: 1, type: 'spring' }}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          width="35"
-          height="35"
-          fill="white"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-        </svg>
-      </motion.a>
-
-      {/* Second Floating WhatsApp Icon (Left Side) */}
-      <motion.a
-        href={`https://wa.me/919376771377?text=${encodeURIComponent(t('whatsapp_message'))}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whatsapp-float left-float"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        transition={{ delay: 1.2, type: 'spring' }}
-      >
-        <svg
-          viewBox="0 0 24 24"
-          width="35"
-          height="35"
-          fill="white"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-        </svg>
-      </motion.a>
-    </div >
+      {/* Floating WhatsApp */}
+      <a href={`https://wa.me/14072528045?text=${encodeURIComponent(t('whatsapp_message'))}`} target="_blank" rel="noopener noreferrer" className="wa-float">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--gold-base)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+      </a>
+      <a href={`https://wa.me/919376771377?text=${encodeURIComponent(t('whatsapp_message'))}`} target="_blank" rel="noopener noreferrer" className="wa-float left">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="var(--gold-base)"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
+      </a>
+    </div>
   );
 };
 
@@ -540,7 +295,7 @@ const App = () => {
       <Route path="/" element={<InvitationContent />} />
       <Route path="/itinerary" element={<Itinerary />} />
       <Route path="/:lang" element={<InvitationContent />} />
-      <Route path="*" element={<Navigate to="/gu" replace />} />
+      <Route path="*" element={<Navigate to="/en" replace />} />
     </Routes>
   );
 };
