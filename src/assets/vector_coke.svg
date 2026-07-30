@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200" fill="#d4af37">
+  <!-- Minimalist Coke Bottle Shape -->
+  <path d="M 40 10 L 60 10 L 60 20 C 60 30, 75 40, 75 80 L 75 160 C 75 180, 65 190, 50 190 C 35 190, 25 180, 25 160 L 25 80 C 25 40, 40 30, 40 20 Z" />
+  <rect x="35" y="80" width="30" height="40" fill="#08102B" />
+  <text x="50" y="105" fill="#d4af37" font-size="12" font-family="sans-serif" font-weight="bold" text-anchor="middle" letter-spacing="1">COLA</text>
+</svg>

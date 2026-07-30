@@ -11,6 +11,7 @@ import creativeTeaImg from './assets/creative_tea.png';
 import vectorPaanImg from './assets/vector_paan.png';
 import vectorCupImg from './assets/vector_cup.png';
 import vectorPuffImg from './assets/vector_puff.png';
+import vectorCokeImg from './assets/vector_coke.png';
 import peacockImg from './assets/peacock_feather.png';
 import marigoldImg from './assets/marigold.png';
 
@@ -89,14 +90,11 @@ const AnimatedSideAsset = ({ src, side, alt }) => {
     <motion.img
       src={src}
       alt={alt}
-      className="side-asset"
-      style={{
-        [isLeft ? 'left' : 'right']: '-50px',
-      }}
-      initial={{ opacity: 0, x: isLeft ? -150 : 150, rotate: isLeft ? -45 : 45 }}
-      whileInView={{ opacity: 0.4, x: 0, rotate: 0 }}
-      viewport={{ once: false, margin: "-10%" }}
-      transition={{ duration: 1.5, ease: "easeOut" }}
+      className={`side-asset ${isLeft ? 'side-asset-left' : 'side-asset-right'}`}
+      initial={{ opacity: 0, x: isLeft ? -80 : 80, y: "-50%", rotate: isLeft ? -30 : 30, scale: 0.8 }}
+      whileInView={{ opacity: 0.85, x: 0, y: "-50%", rotate: 0, scale: 1 }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 1, ease: "easeOut" }}
     />
   );
 };
@@ -207,8 +205,8 @@ const InvitationContent = () => {
 
       {/* The Vision Section */}
       <section className="content-section">
-        <AnimatedSideAsset src={vectorPaanImg} side="left" alt="Paan Vector" />
-        <AnimatedSideAsset src={vectorCupImg} side="right" alt="Cup Vector" />
+        <AnimatedSideAsset src={vectorPuffImg} side="left" alt="Puff Vector" />
+        <AnimatedSideAsset src={vectorPaanImg} side="right" alt="Paan Vector" />
         <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
           <span className="gold-text">{t('vision_title')}</span>
         </motion.h2>
@@ -221,8 +219,8 @@ const InvitationContent = () => {
 
       {/* Event Details */}
       <section className="content-section">
-        <AnimatedSideAsset src={vectorPuffImg} side="left" alt="Puff Vector" />
-        <AnimatedSideAsset src={marigoldImg} side="right" alt="Marigold" />
+        <AnimatedSideAsset src={vectorCupImg} side="left" alt="Cup Vector" />
+        <AnimatedSideAsset src={vectorCokeImg} side="right" alt="Coke Vector" />
         <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
           <span className="gold-text">{t('program_title')}</span>
         </motion.h2>
@@ -246,8 +244,8 @@ const InvitationContent = () => {
 
       {/* Protocol & RSVP */}
       <section className="content-section">
-        <AnimatedSideAsset src={peacockImg} side="left" alt="Peacock Feather" />
-        <AnimatedSideAsset src={vectorPaanImg} side="right" alt="Paan Vector" />
+        <AnimatedSideAsset src={vectorPaanImg} side="left" alt="Paan Vector" />
+        <AnimatedSideAsset src={vectorPuffImg} side="right" alt="Puff Vector" />
         <motion.h2 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 1 }}>
           <span className="gold-text">{t('inviter_title')}</span>
         </motion.h2>
@@ -266,6 +264,8 @@ const InvitationContent = () => {
 
       {/* Final Greeting */}
       <section className="content-section" style={{ minHeight: '40vh' }}>
+        <AnimatedSideAsset src={vectorCokeImg} side="left" alt="Coke Vector" />
+        <AnimatedSideAsset src={vectorCupImg} side="right" alt="Cup Vector" />
         <motion.h2 
           className="gold-text" 
           style={{ fontSize: '1.5rem', letterSpacing: '0.4em' }}
